@@ -1,0 +1,180 @@
+---
+title: Integrations and Extensions
+description: Connect RaaziSpace with your favorite tools and services to streamline workflows. Learn about built-in integrations and webhook setups for advanced automation.
+---
+
+## Overview
+
+RaaziSpace supports seamless integrations with popular third-party services, webhooks for real-time notifications, and full API access for custom solutions. You can connect GitHub for repo syncing, Slack for instant alerts, or build bespoke automations using webhooks and the REST API. Export your docs to Markdown or import from other tools to centralize your knowledge base.
+
+<Callout kind="tip">
+  Start with built-in integrations for quick setup, then explore webhooks and API for advanced workflows.
+</Callout>
+
+## Built-in Integrations
+
+RaaziSpace offers one-click connections to essential tools. Use these to automate updates, notifications, and data sync.
+
+<Columns cols={3}>
+  <Card title="GitHub" icon="github" href="/docs/integrations/github">
+    Sync repositories, auto-generate docs from code, and trigger builds on doc updates.
+  </Card>
+  <Card title="Slack" icon="message-circle" href="/docs/integrations/slack">
+    Send notifications for doc changes, mentions, or approvals directly to your channels.
+  </Card>
+  <Card title="Zapier" icon="zap" href="/docs/integrations/zapier">
+    Connect to 5000+ apps without coding—automate workflows across your stack.
+  </Card>
+</Columns>
+
+## Webhook Configuration
+
+Set up webhooks to receive real-time events from RaaziSpace, such as document updates or user actions. Follow these steps to configure one.
+
+<Steps>
+  <Step title="Create Webhook" icon="plus">
+    Navigate to Settings > Webhooks in your RaaziSpace dashboard. Click "New Webhook".
+  </Step>
+  <Step title="Add Endpoint URL" icon="link">
+    Enter your endpoint, like `https://your-webhook-url.com/raazispace`. Select events to subscribe to (e.g., `doc.updated`).
+  </Step>
+  <Step title="Test and Save" icon="check-circle">
+    Send a test event and verify receipt. Save to activate.
+
+````json
+{
+  "event": "doc.updated",
+  "data": {
+    "doc_id": "12345",
+    "title": "Updated Guide",
+    "user_id": "user-abc"
+  }
+}
+````
+  </Step>
+</Steps>
+
+<ParamField path="webhook_url" param-type="string" required="true">
+  Your secure HTTPS endpoint to receive payloads.
+</ParamField>
+
+<ParamField header="RaaziSpace-Signature" param-type="string" required="false">
+  HMAC SHA-256 signature for payload verification using your secret.
+</ParamField>
+
+## Custom API Integrations
+
+For deeper customization, use the RaaziSpace REST API at `https://api.example.com/v1`. Authenticate with your API key.
+
+<CodeGroup tabs="JavaScript,Python">
+````javascript
+const response = await fetch('https://api.example.com/v1/docs', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${YOUR_API_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    title: 'New Doc',
+    content: '# Hello RaaziSpace'
+  })
+});
+````
+
+````python
+import requests
+
+response = requests.post(
+  'https://api.example.com/v1/docs',
+  headers={
+    'Authorization': f'Bearer {YOUR_API_KEY}',
+    'Content-Type': 'application/json'
+  },
+  json={
+    'title': 'New Doc',
+    'content': '# Hello RaaziSpace'
+  }
+)
+````
+</CodeGroup>
+
+<Request tabs="JavaScript,cURL" show-lines="true">
+````javascript
+fetch('https://api.example.com/v1/docs/123', {
+  headers: { 'Authorization': `Bearer ${YOUR_API_KEY}` }
+});
+````
+````bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \
+  https://api.example.com/v1/docs/123
+````
+</Request>
+
+<Response tabs="200">
+````json
+{
+  "id": "123",
+  "title": "API Guide",
+  "content": "# Full content here",
+  "updated_at": "2024-10-15T10:00:00Z"
+}
+````
+</Response>
+
+## Export and Import Options
+
+Easily migrate content to or from other doc tools.
+
+<Tabs>
+  <Tab title="Export to Markdown" icon="download">
+    Go to Docs > Export. Select Markdown format to download a ZIP of your workspace.
+
+````bash
+# Example exported structure
+docs/
+├── guide.md
+├── api.md
+└── README.md
+````
+  </Tab>
+  <Tab title="Import from Notion" icon="upload">
+    Use Docs > Import > Notion. Paste your workspace URL and authenticate.
+
+    <Callout kind="info">
+      Supports pages, databases, and rich content. Images import as external links.
+    </Callout>
+  </Tab>
+  <Tab title="CSV Bulk Import" icon="database">
+    Prepare a CSV with columns: `title`, `content`, `slug`. Upload via Bulk Import tool.
+  </Tab>
+</Tabs>
+
+<Expandable title="Advanced Webhook Security" default-open="false">
+  Verify payloads with the `RaaziSpace-Signature` header:
+
+````javascript
+const crypto = require('crypto');
+const signature = req.headers['raazispace-signature'];
+const hash = crypto.createHmac('sha256', WEBHOOK_SECRET)
+  .update(JSON.stringify(req.body))
+  .digest('hex');
+if (signature !== `sha256=${hash}`) {
+  throw new Error('Invalid signature');
+}
+````
+</Expandable>
+
+## Next Steps
+
+<Columns cols={2}>
+  <Card title="API Reference" icon="code" href="/api-reference">
+    Explore full API endpoints and SDKs.
+  </Card>
+  <Card title="Changelog" icon="git-commit" href="/changelog" horizontal>
+    Stay updated with integration improvements.
+  </Card>
+</Columns>
+
+<Callout kind="success">
+  Integrations unlock RaaziSpace's full potential. Customize as needed for your workflow.
+</Callout>

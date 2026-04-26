@@ -1,0 +1,138 @@
+---
+title: Changelog
+description: Track the latest updates and improvements in RaaziSpace. Review recent releases and what's coming next to stay informed on platform enhancements.
+---
+
+## Recent Updates
+
+Stay current with RaaziSpace's evolution. You can find detailed release notes for each version below, highlighting new features, improvements, bug fixes, and any breaking changes.
+
+<Update label="2024-10-15" description="v2.1.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added real-time collaboration for project documentation, allowing multiple users to edit simultaneously.
+- Introduced version history with diff views to compare document changes over time.
+
+## Improvements
+
+- Enhanced search functionality with full-text indexing across all projects.
+- Optimized dashboard loading times by `>40%` for large documentation spaces.
+
+## Bug Fixes
+
+- Fixed issue where embedded images failed to load in preview mode.
+- Resolved authentication token refresh errors during long editing sessions.
+
+</Update>
+
+<Update label="2024-09-20" description="v2.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Launched custom themes and branding options using your brand color like `#3B82F6`.
+- Integrated webhook support for automating documentation workflows.
+
+## Breaking Changes
+
+- Updated API endpoints from `/v1/docs` to `/v2/docs` – update your integrations accordingly.
+
+## Bug Fixes
+
+- Corrected export to PDF failures for documents with tables.
+- Patched cross-site scripting vulnerability in user-generated content.
+
+</Update>
+
+<Update label="2024-08-05" description="v1.5.0" tags={["bugfix", "improvement"]}>
+
+## Improvements
+
+- Streamlined project import from Markdown, GitHub, and Notion.
+- Added keyboard shortcuts for faster navigation: `<kbd>Ctrl</kbd>+<kbd>K</kbd>` for search.
+
+## Bug Fixes
+
+- Fixed sync issues between web editor and mobile app.
+- Resolved permission errors when sharing docs with external teams.
+
+</Update>
+
+## Upcoming Roadmap
+
+RaaziSpace continues to evolve based on your feedback. Here's a preview of key initiatives on the horizon.
+
+<Columns cols={2}>
+  <Card title="AI-Powered Editing" icon="zap" href="/guides/ai-features">
+    Smart suggestions and auto-summaries for your docs coming in v2.2.0.
+  </Card>
+  <Card title="Advanced Analytics" icon="bar-chart-3" href="/guides/analytics">
+    Track document usage and engagement metrics in the next release.
+  </Card>
+</Columns>
+
+<Callout kind="info">
+  Subscribe to our RSS feed or join the Discord community to get notified about new releases instantly.
+</Callout>
+
+## How to Upgrade
+
+Follow these steps to ensure a smooth update to the latest version.
+
+<Steps>
+  <Step title="Check Compatibility" icon="check-circle">
+    Review the breaking changes section in each release note above.
+  </Step>
+  <Step title="Backup Your Data" icon="database">
+    Export your projects via the dashboard before proceeding.
+  </Step>
+  <Step title="Update Client" icon="download">
+    
+````bash
+npm update raazi-space-client --save
+````
+
+    Or use your preferred package manager.
+  </Step>
+  <Step title="Test in Staging" icon="monitor">
+    Deploy to a staging environment first and verify all features work.
+  </Step>
+</Steps>
+
+## Detailed Migration Guide
+
+<Expandable title="v2.0.0 Migration Details" default-open="false">
+
+If you're upgrading from v1.x, note these key changes:
+
+- API base URL changed to `https://api.raazispace.com/v2`.
+- New required header: `X-API-Version: 2.0`.
+
+Update your code like this:
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+  const response = await fetch('https://api.raazispace.com/v2/docs', {
+    headers: {
+      'Authorization': `Bearer ${YOUR_API_KEY}`,
+      'X-API-Version': '2.0'
+    }
+  });
+  ```
+
+  ```python
+  import requests
+
+  headers = {
+      'Authorization': f'Bearer {YOUR_API_KEY}',
+      'X-API-Version': '2.0'
+  }
+  response = requests.get('https://api.raazispace.com/v2/docs', headers=headers)
+  ```
+</CodeGroup>
+
+</Expandable>
+
+<Callout kind="tip">
+  This changelog serves as a starter template. Customize it with your actual release history as you build out RaaziSpace.
+</Callout>
