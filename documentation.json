@@ -51,6 +51,15 @@
                 "icon": "plug"
               }
             ]
+          },
+          {
+            "group": "DataCamp",
+            "pages": [
+              {
+                "title": "LLM Concepts",
+                "path": "llm-concepts"
+              }
+            ]
           }
         ]
       },
