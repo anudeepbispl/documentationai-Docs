@@ -56,8 +56,31 @@
             "group": "DataCamp",
             "pages": [
               {
-                "title": "LLM Concepts",
-                "path": "llm-concepts"
+                "group": "LLM Concepts",
+                "pages": [
+                  {
+                    "group": "development phase",
+                    "pages": [
+                      {
+                        "title": "Chains and agents",
+                        "path": "chains-and-agents"
+                      },
+                      {
+                        "title": "Promt engineering",
+                        "path": "promt-engineering"
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Ideation Phase",
+                    "pages": [
+                      {
+                        "title": "Factors in model selection",
+                        "path": "llm-concepts"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
