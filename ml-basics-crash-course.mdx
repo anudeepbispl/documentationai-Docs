@@ -1,0 +1,338 @@
+---
+title: ML Basics Crash Course
+---
+# ML Basics Crash Course
+
+## 1. The Big Picture — What is ML?
+
+Instead of writing rules manually, you **show the computer examples** and it learns the rules itself.
+
+```typescript
+Traditional programming:  Data + Rules → Output
+Machine Learning:         Data + Output → Rules (the model)
+
+```
+
+---
+
+## 2. Supervised vs Unsupervised Learning
+
+### Supervised Learning
+
+You give the model **labeled data** — inputs with correct answers.
+
+```typescript
+# Example: predicting house price
+# Input (features)     →  Output (label)
+# [1200 sqft, 3 bed]   →  ₹85 lakhs
+# [800 sqft, 2 bed]    →  ₹55 lakhs
+# Model learns the mapping: features → price
+
+```
+
+Two types of supervised learning:
+
+**Regression** — output is a number
+
+- Predict house price, salary, temperature
+
+**Classification** — output is a category
+
+- Spam or not spam, disease or healthy, cat or dog
+
+### Unsupervised Learning
+
+No labels. Model finds **hidden patterns** on its own.
+
+```typescript
+# Example: customer segmentation
+# You give: [age, spend, location] for 10,000 customers
+# Model finds: "hey, there are 4 natural groups here"
+# You didn't tell it the groups — it discovered them
+
+```
+
+**Clustering** is the main unsupervised technique — grouping similar data points together.
+
+---
+
+## 3. Core Concepts You Must Know
+
+### Train / Test Split
+
+Never evaluate a model on data it trained on — that's cheating. Split your data upfront.
+
+```typescript
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,      # 20% for testing
+    random_state=42     # reproducibility
+)
+
+# Rule of thumb: 80% train, 20% test
+# For small datasets: use cross-validation instead
+
+```
+
+### Overfitting vs Underfitting
+
+This is the most important concept in all of ML.
+
+```typescript
+Underfitting:  Model is too simple — bad on training data AND test data
+               (like a student who didn't study at all)
+
+Good fit:      Good on training AND test data ← what you want
+
+Overfitting:   Model memorized training data — great on train, bad on test
+               (like a student who memorized answers, not concepts)
+
+```
+
+How to detect it:
+
+```typescript
+print(f"Train accuracy: {model.score(X_train, y_train):.2f}")
+print(f"Test accuracy:  {model.score(X_test, y_test):.2f}")
+
+# Train: 0.98, Test: 0.62  →  OVERFITTING
+# Train: 0.65, Test: 0.63  →  UNDERFITTING
+# Train: 0.89, Test: 0.86  →  GOOD FIT
+
+```
+
+How to fix overfitting:
+
+- Get more training data
+
+- Simplify the model (fewer features, less depth)
+
+- Use regularization (Ridge, Lasso)
+
+- Use cross-validation
+
+---
+
+## 4. Regression — Predict a Number
+
+```typescript
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.model_selection import train_test_split
+
+# Sample data
+data = {
+    'sqft':    [800, 1000, 1200, 1500, 1800, 2000],
+    'bedrooms':[2,   2,    3,    3,    4,    4   ],
+    'price':   [45,  55,   70,   85,   100,  115 ]  # in lakhs
+}
+df = pd.DataFrame(data)
+
+X = df[['sqft', 'bedrooms']]
+y = df['price']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LinearRegression()
+model.fit(X_train, y_train)        # TRAIN
+
+y_pred = model.predict(X_test)     # PREDICT
+
+# Evaluate
+print(f"MAE: {mean_absolute_error(y_test, y_pred):.2f} lakhs")
+print(f"R²:  {r2_score(y_test, y_pred):.2f}")   # 1.0 = perfect
+
+# Predict new house
+new_house = [[1400, 3]]
+print(f"Predicted price: ₹{model.predict(new_house)[0]:.1f} lakhs")
+
+```
+
+Key regression metrics:
+
+```typescript
+MAE  (Mean Absolute Error)   — average error in same unit as output. Easy to explain.
+RMSE (Root Mean Squared Error) — penalizes large errors more
+R²   (R-squared)             — 0 to 1, how much variance the model explains
+
+```
+
+---
+
+## 5. Classification — Predict a Category
+
+```typescript
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.datasets import load_iris
+
+# Load sample data (iris flowers — 3 species)
+iris = load_iris()
+X, y = iris.data, iris.target
+# Features: sepal length, sepal width, petal length, petal width
+# Labels:   0=setosa, 1=versicolor, 2=virginica
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+# Full evaluation report
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+
+# Confusion matrix — where did it get confused?
+print(confusion_matrix(y_test, y_pred))
+
+```
+
+Key classification metrics:
+
+```typescript
+Accuracy   — % of correct predictions. Misleading on imbalanced data.
+Precision  — of all predicted positives, how many were actually positive?
+Recall     — of all actual positives, how many did we catch?
+F1 Score   — harmonic mean of precision and recall. Use this for imbalanced data.
+
+Confusion matrix:
+              Predicted: No   Predicted: Yes
+Actual: No       TN               FP
+Actual: Yes      FN               TP
+
+```
+
+---
+
+## 6. Clustering — Find Hidden Groups
+
+```typescript
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+# Customer data: [annual_spend, age]
+customers = np.array([
+    [500, 25], [520, 27], [480, 24],    # young, low spend
+    [5000, 45], [4800, 47], [5200, 44], # mid-age, high spend
+    [300, 65], [280, 68], [310, 63],    # senior, low spend
+])
+
+# Always scale before clustering
+scaler = StandardScaler()
+customers_scaled = scaler.fit_transform(customers)
+
+# K-Means: you tell it how many clusters (k)
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(customers_scaled)
+
+labels = kmeans.labels_
+print(f"Customer segments: {labels}")
+# Output: [0 0 0 1 1 1 2 2 2]  — 3 discovered groups
+
+# How to pick k? Use the elbow method
+inertias = []
+for k in range(1, 8):
+    km = KMeans(n_clusters=k, random_state=42)
+    km.fit(customers_scaled)
+    inertias.append(km.inertia_)
+# Plot inertias — look for the "elbow" where improvement slows
+
+```
+
+---
+
+## 7. sklearn Pipelines — The Right Way to Do Things
+
+Pipelines prevent **data leakage** (accidentally using test data info during training) and make your code production-ready.
+
+```typescript
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score
+
+# Without pipeline (wrong — scaler sees test data):
+# scaler.fit(X)              ← leakage!
+# X_scaled = scaler.transform(X)
+
+# With pipeline (correct):
+pipe = Pipeline([
+    ('imputer',    SimpleImputer(strategy='median')),   # fill missing values
+    ('scaler',     StandardScaler()),                   # normalize features
+    ('classifier', RandomForestClassifier(n_estimators=100))
+])
+
+# The pipeline fits ONLY on training data internally
+pipe.fit(X_train, y_train)
+print(f"Test accuracy: {pipe.score(X_test, y_test):.2f}")
+
+# Cross-validation — more reliable than a single train/test split
+scores = cross_val_score(pipe, X, y, cv=5)
+print(f"CV scores: {scores}")
+print(f"Mean: {scores.mean():.2f} (+/- {scores.std():.2f})")
+
+```
+
+### What goes in a pipeline:
+
+```typescript
+1. Imputer      → fill missing values
+2. Encoder      → convert categories to numbers (OneHotEncoder)
+3. Scaler       → normalize feature ranges (StandardScaler)
+4. Model        → the actual algorithm
+
+```
+
+---
+
+## 8. Most Important Algorithms (Know These)
+
+| Algorithm           | Type           | When to use                           |
+| ------------------- | -------------- | ------------------------------------- |
+| Linear Regression   | Regression     | Simple, interpretable, numeric output |
+| Logistic Regression | Classification | Binary problems, interpretable        |
+| Decision Tree       | Both           | Easy to explain, prone to overfit     |
+| Random Forest       | Both           | Great default, handles noise well     |
+| XGBoost / LightGBM  | Both           | Best for tabular data in industry     |
+| K-Means             | Clustering     | Group discovery, customer segments    |
+| KNN                 | Both           | Simple baseline, slow on large data   |
+| SVM                 | Classification | High-dimensional data, text           |
+
+**In practice:** Start with Logistic Regression or Random Forest as your baseline. Then try XGBoost. That covers 80% of real ML problems on tabular data.
+
+---
+
+## 9. The Full ML Workflow
+
+```typescript
+1. Define the problem      What are you predicting? What metric matters?
+2. Get & explore data      df.head(), df.describe(), df.isnull().sum()
+3. Feature engineering     Create useful features, encode categories
+4. Split data              train_test_split before ANY processing
+5. Build pipeline          imputer → scaler → model
+6. Train                   pipe.fit(X_train, y_train)
+7. Evaluate                score on test set, check confusion matrix / MAE
+8. Tune                    GridSearchCV or RandomizedSearchCV
+9. Diagnose                overfit? underfit? get more data? simpler model?
+10. Deploy                 save with joblib, serve via FastAPI
+
+```
+
+---
+
+## 10. Quick Practice Plan
+
+**Week 1** — Do the Titanic dataset on Kaggle (classification). Practice the full pipeline.
+
+**Week 2** — Do the House Prices dataset on Kaggle (regression). Focus on feature engineering.
+
+**Week 3** — Pick any clustering task — customer segmentation with a real CSV.
+
+**Week 4** — Revisit everything with cross-validation and hyperparameter tuning (GridSearchCV).
+
+That's everything you need from sklearn to move confidently into the LLM and AI engineering layers.

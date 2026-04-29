@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "AI",
         "icon": "book",
         "groups": [
           {
@@ -53,8 +53,51 @@
             ]
           },
           {
-            "group": "DataCamp",
+            "group": "GenAI",
             "pages": [
+              {
+                "group": "AI Engineer",
+                "pages": [
+                  {
+                    "title": "ML Basics Crash Course",
+                    "path": "ml-basics-crash-course"
+                  },
+                  {
+                    "title": "Overfitting vs Underfitting",
+                    "path": "overfitting-vs-underfitting"
+                  },
+                  {
+                    "title": "Introduction-AI-Engineer",
+                    "path": "introduction-ai-engineer"
+                  },
+                  {
+                    "group": "PyTorch",
+                    "pages": [
+                      {
+                        "title": "Pytorch and deep learning fundamentals",
+                        "path": "pytorch-and-deep-learning-fundamentals"
+                      },
+                      {
+                        "title": "Introduction-pytorch",
+                        "path": "introduction-pytorch"
+                      }
+                    ]
+                  },
+                  {
+                    "title": "TOC",
+                    "path": "toc"
+                  }
+                ]
+              },
+              {
+                "group": "30 hr GenAI Course",
+                "pages": [
+                  {
+                    "title": "Introduction-genAI",
+                    "path": "introduction-genai"
+                  }
+                ]
+              },
               {
                 "group": "LLM Concepts",
                 "pages": [
@@ -149,6 +192,15 @@
             "title": "Release History",
             "path": "changelog",
             "icon": "history"
+          }
+        ]
+      },
+      {
+        "tab": "Experiments",
+        "pages": [
+          {
+            "title": "experiment root formula",
+            "path": "experiment-root-formula"
           }
         ]
       }

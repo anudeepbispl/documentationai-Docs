@@ -1,0 +1,94 @@
+---
+title: TOC
+---
+Here's the **AI Engineer Job Roadmap** — end to end, focused only on getting hired.
+
+---
+
+## Phase 1 — Foundations (0–6 weeks)
+
+**Python mastery** NumPy, Pandas, OOP, REST APIs, async programming. If you already know Python well, skim this.
+
+**Math for AI** Linear algebra (vectors, matrices), probability & statistics, basic calculus (gradients). You don't need to be a mathematician — you need enough to understand what models are doing.
+
+**ML basics** Supervised vs unsupervised learning, train/test splits, overfitting, sklearn pipelines, regression, classification, clustering. Use <a href="http://fast.ai" target="_blank" rel="noopener noreferrer">fast.ai</a> or Andrew Ng's ML course.
+
+**Deep learning frameworks** PyTorch is the industry standard now. Learn it first. Keras/TensorFlow is secondary.
+
+**Neural net architectures** Feedforward, CNN, RNN/LSTM — but most importantly, the Transformer. You must be able to explain it end to end.
+
+---
+
+## Phase 2 — AI / LLM Core Skills (weeks 6–14)
+
+**LLM internals** Transformers, self-attention, tokenization, positional encoding, context windows. Be able to whiteboard the architecture.
+
+**Prompt engineering** Zero-shot, few-shot, chain-of-thought, ReAct pattern, system prompts. Practice with OpenAI and Anthropic APIs directly.
+
+**RAG pipelines** This is the #1 thing companies want right now. Learn LangChain or LlamaIndex, chunking strategies, retrieval ranking, and how to build a full Q\&A system over documents.
+
+**Embeddings & vector databases** How embeddings work, cosine similarity, and hands-on with at least one vector DB — Pinecone, Weaviate, pgvector, or FAISS.
+
+**Fine-tuning** LoRA, QLoRA, PEFT. Know the concepts and do at least one fine-tuning run on a small model (Mistral 7B or Llama 3). Understand when fine-tuning beats RAG and vice versa.
+
+**LLM evaluation** RAGAS framework, LLM-as-judge pattern, benchmark design, hallucination detection. Companies care a lot about this and few candidates know it well.
+
+---
+
+## Phase 3 — MLOps & Production Tools (weeks 12–20)
+
+**LLM APIs** OpenAI, Anthropic, HuggingFace Inference API, Groq. Know rate limits, cost optimization, and streaming responses.
+
+**Cloud platforms** AWS SageMaker or GCP Vertex AI. Given your AWS background, lean into SageMaker — this is a direct advantage for you.
+
+**Containers & CI/CD** Docker, GitHub Actions for ML pipelines, FastAPI for model serving. These are table stakes.
+
+**Agent frameworks** LangGraph, AutoGen, or CrewAI. Build at least one multi-step agent with tool calling and memory.
+
+**Monitoring & observability** LangSmith for tracing LLM calls, Weights & Biases for experiments, Arize or Evidently for production drift. Interviewers love this topic because most candidates skip it.
+
+**Data pipelines (your edge)** Your Spark and AWS data engineering background is a real differentiator. Frame your existing skills as the data layer that feeds AI systems — most AI engineers are weak here.
+
+---
+
+## Phase 4 — Portfolio Projects (build 3–4)
+
+**Project 1 — RAG chatbot** Build a Q\&A system over PDFs or a document set. Deploy it (Streamlit + AWS or HuggingFace Spaces). Add evaluation with RAGAS. This is the must-have project.
+
+**Project 2 — Multi-step AI agent** An agent that does a real task — research assistant, code reviewer, data analyst. Use LangGraph or AutoGen. Show tool calling, memory, and error handling.
+
+**Project 3 — Fine-tuned domain model** Fine-tune Llama 3 or Mistral 7B on a domain-specific dataset using LoRA. Include a before/after eval showing improvement. Push to HuggingFace Hub.
+
+**Project 4 — AI + data pipeline (your differentiator)** Combine your Spark/AWS background with an LLM — for example, a pipeline that processes large datasets and uses an LLM for extraction or classification. This sets you apart from pure AI engineers.
+
+Every project needs a GitHub repo with a clear README, architecture diagram, and live demo if possible.
+
+---
+
+## Phase 5 — Job Search Strategy (start from week 12)
+
+**Resume & LinkedIn** Add AI keywords: LLM, RAG, LangChain, embeddings, fine-tuning, prompt engineering. Link every project. Quantify outcomes. Reframe your data engineering experience as AI infrastructure experience.
+
+**Target roles** Look for: AI Engineer, ML Engineer, LLM Engineer, Generative AI Engineer, Applied AI Engineer. In your case, also look at Data + AI hybrid roles — companies building AI on top of data lakes are a perfect fit.
+
+**Technical interview prep** You will be tested on: LLM system design (design a RAG system, design a chatbot at scale), coding (Python, maybe some PyTorch), ML concepts, and your projects. Practice explaining your projects like a story — problem, approach, trade-offs, results.
+
+**System design interviews (AI-specific)** Study: how to design a RAG system end to end, how to scale LLM inference, how to handle context window limits, how to build an eval pipeline. These are the most common senior-level AI design questions.
+
+**Networking** Post on LinkedIn about what you're building. Engage in AI communities (Hugging Face Discord, LangChain community, local AI meetups in Bangalore/Hyderabad). Recruiters and hiring managers notice builders.
+
+**Certifications (optional but useful)** AWS Machine Learning Specialty (aligns with your existing AWS background), <a href="http://DeepLearning.AI" target="_blank" rel="noopener noreferrer">DeepLearning.AI</a> short courses on LLMs, and the HuggingFace NLP course are the highest-signal ones for job applications.
+
+---
+
+## Timeline summary
+
+| Weeks   | Focus                                           |
+| ------- | ----------------------------------------------- |
+| 0–6     | Python, math, ML basics, PyTorch                |
+| 6–14    | LLMs, RAG, embeddings, fine-tuning, evals       |
+| 12–20   | MLOps, cloud, agents, monitoring                |
+| 12+     | Build projects in parallel, start applying      |
+| Ongoing | Interview prep, networking, iterate on projects |
+
+Your data engineering background cuts the timeline significantly. You can skip a lot of the "data handling" basics that slow other candidates down, and your AWS experience means Phase 3 is faster for you than for most.

@@ -1,0 +1,121 @@
+---
+title: Overfitting vs Underfitting
+---
+You’ve already got the intuition right—let’s lock it in with **clear examples** so it sticks.
+
+---
+
+# **🎯 1. Underfitting (Too Simple)**
+
+👉 Model is too dumb to learn patterns
+
+### **📘 Example: House Price Prediction**
+
+You try to predict house price using:
+
+```typescript
+Price = 1000 × (number of rooms)
+```
+
+But real prices depend on:
+
+- location
+
+- size
+
+- amenities
+
+### **Result:**
+
+- ❌ Training data → wrong
+
+- ❌ New data → wrong
+
+👉 Like a student who didn’t study at all
+
+---
+
+# **🎯 2. Good Fit (Just Right)**
+
+👉 Model learns the real pattern, not noise
+
+### **📘 Example: House Price Prediction**
+
+Model uses:
+
+- rooms
+
+- location
+
+- area
+
+- age of house
+
+### **Result:**
+
+- ✅ Training data → good predictions
+
+- ✅ New data → good predictions
+
+👉 Like a student who **understands concepts**
+
+---
+
+# **🎯 3. Overfitting (Too Complex)**
+
+👉 Model memorizes instead of learning
+
+### **📘 Example: House Price Prediction**
+
+Model does something like:
+
+```typescript
+If house_id = 101 → price = ₹52,34,123
+If house_id = 102 → price = ₹61,92,781
+```
+
+It memorizes exact training data instead of patterns.
+
+### **Result:**
+
+- ✅ Training data → perfect
+
+- ❌ New data → fails badly
+
+👉 Like a student who memorized answers word-for-word
+
+---
+
+# **📊 Visual Intuition (Very Important)**
+
+Think of fitting a curve to data:
+
+- **Underfitting:** Straight line (too simple)
+
+- **Good fit:** Smooth curve (captures pattern)
+
+- **Overfitting:** Wiggly curve (fits every point)
+
+---
+
+# **🔑 One-Line Memory**
+
+- **Underfitting:** Didn’t learn
+
+- **Good fit:** Learned well
+
+- **Overfitting:** Memorized
+
+---
+
+# **🧠 Quick Comparison**
+
+| **Case**     | **Training Performance** | **Test Performance** | **Problem** |
+| ------------ | ------------------------ | -------------------- | ----------- |
+| Underfitting | ❌ Bad                    | ❌ Bad                | Too simple  |
+| Good Fit     | ✅ Good                   | ✅ Good               | Ideal       |
+| Overfitting  | ✅ Very good              | ❌ Bad                | Too complex |
+
+---
+
+If you want, I can show you **real code or graphs**—that’s where this concept becomes crystal clear.
